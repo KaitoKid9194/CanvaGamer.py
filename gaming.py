@@ -24,17 +24,17 @@ multiple_choice = [
     },
     {
         "question": "4️⃣ They ______ football now.",
-        "options": ["are playing", "play", "plays", "played"],
+        "options": ["is playing", "play", "plays", "are playing"],
         "answer": "are playing"
     },
     {
         "question": "5️⃣ My parents ______ dinner right now.",
-        "options": ["are cooking", "cook", "cooked", "is cooking"],
+        "options": ["are cooking", "cooking", "cooked", "is cooking"],
         "answer": "are cooking"
     },
     {
         "question": "6️⃣ I can’t talk now — I ______.",
-        "options": ["am studying", "study", "studied", "studying"],
+        "options": ["is studying", "study", "am studying", "studying"],
         "answer": "am studying"
     },
 ]
