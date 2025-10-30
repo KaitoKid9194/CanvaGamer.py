@@ -62,6 +62,7 @@ if "score" not in st.session_state:
     st.session_state.score = 0
 
 st.title("⏳ Past Continuous Tense Quiz")
+st.subheader("Answer all the questions.")
 
 # --- QUIZ FORM ---
 with st.form("quiz_form"):
