@@ -5,7 +5,7 @@ import random
 mc_questions = [
     {
         "question": "1. What were you doing at 8 PM yesterday?",
-        "options": ["I was study.", "I was studying.", "I were studying.", "I am studying."],
+        "options": ["I were study.", "I was studying.", "I was study.", "I am studying."],
         "answer": "I was studying."
     },
     {
@@ -15,7 +15,7 @@ mc_questions = [
     },
     {
         "question": "3. She wasn't listening because she ____ (think) about something else.",
-        "options": ["was thinking", "were thinking", "thinks", "is thinking"],
+        "options": ["is thinking", "were thinking", "thinks", "was thinking"],
         "answer": "was thinking"
     },
     {
@@ -25,7 +25,7 @@ mc_questions = [
     },
     {
         "question": "5. I ____ (not pay) attention when the teacher asked the question.",
-        "options": ["wasn't paying", "weren't paying", "not paid", "didn't pay"],
+        "options": ["don't paying", "wasn't paying", "not paid", "didn't pay"],
         "answer": "wasn't paying"
     },
     {
