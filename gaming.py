@@ -1,4 +1,5 @@
 import streamlit as st
+import random
 
 # --- QUIZ DATA ---
 mc_questions = [
@@ -55,14 +56,16 @@ fill_questions = [
 
 total_questions = len(mc_questions) + len(fill_questions)
 
-# --- STATE SETUP ---
+# --- SESSION SETUP ---
 if "submitted" not in st.session_state:
     st.session_state.submitted = False
 if "score" not in st.session_state:
     st.session_state.score = 0
+if "key_seed" not in st.session_state:
+    st.session_state.key_seed = random.randint(0, 10000)  # unique widget keys per run
 
 st.title("⏳ Past Continuous Tense Quiz")
-st.subheader("Answer all the questions.")
+st.subheader("Answer all questions")
 
 # --- QUIZ FORM ---
 with st.form("quiz_form"):
@@ -70,14 +73,16 @@ with st.form("quiz_form"):
 
     st.subheader("Multiple Choice Questions")
     mc_answers = []
-    for q in mc_questions:
-        user_ans = st.radio(q["question"], q["options"], key=q["question"])
+    for i, q in enumerate(mc_questions):
+        key = f"mc_{i}_{st.session_state.key_seed}"
+        user_ans = st.radio(q["question"], q["options"], key=key)
         mc_answers.append(user_ans)
 
     st.subheader("Fill in the Blank Questions")
     fill_answers = []
-    for q in fill_questions:
-        user_ans = st.text_input(q["question"], key=q["question"])
+    for i, q in enumerate(fill_questions):
+        key = f"fill_{i}_{st.session_state.key_seed}"
+        user_ans = st.text_input(q["question"], key=key)
         fill_answers.append(user_ans.strip().lower())
 
     submitted = st.form_submit_button("Submit Quiz")
@@ -97,14 +102,15 @@ if submitted:
     st.session_state.score = score
     st.session_state.submitted = True
 
-# --- DISPLAY RESULTS ---
+# --- RESULTS DISPLAY ---
 if st.session_state.submitted:
     progress = st.session_state.score / total_questions
     st.progress(progress)
     st.success(f"🎯 You got {st.session_state.score}/{total_questions} correct!")
 
-    # Restart button
     if st.button("🔄 Restart Quiz"):
+        # reset everything including widget states
         for key in list(st.session_state.keys()):
             del st.session_state[key]
         st.rerun()
+
