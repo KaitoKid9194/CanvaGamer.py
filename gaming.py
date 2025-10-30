@@ -1,101 +1,109 @@
 import streamlit as st
 
-# --- PAGE SETUP ---
-st.set_page_config(page_title="Present Continuous Quiz", page_icon="🧩")
-st.title("🧩 Present Continuous Tense Quiz")
-st.subheader("Answer all questions!")
-
 # --- QUIZ DATA ---
-multiple_choice = [
+mc_questions = [
     {
-        "question": "1️⃣ She ______ to music right now.",
-        "options": ["listen", "listens", "is listening", "listened"],
-        "answer": "is listening"
+        "question": "1. What were you doing at 8 PM yesterday?",
+        "options": ["I was study.", "I was studying.", "I were studying.", "I am studying."],
+        "answer": "I was studying."
     },
     {
-        "question": "2️⃣ Look! It ______ outside.",
-        "options": ["is raining", "rains", "raining", "rain"],
-        "answer": "is raining"
+        "question": "2. They ____ (watch) a movie when I called them.",
+        "options": ["was watching", "were watching", "watched", "are watching"],
+        "answer": "were watching"
     },
     {
-        "question": "3️⃣ We ______ for the bus at the moment.",
-        "options": ["are wait", "are waiting", "wait", "waited"],
-        "answer": "are waiting"
+        "question": "3. She wasn't listening because she ____ (think) about something else.",
+        "options": ["was thinking", "were thinking", "thinks", "is thinking"],
+        "answer": "was thinking"
     },
     {
-        "question": "4️⃣ They ______ football now.",
-        "options": ["is playing", "play", "plays", "are playing"],
-        "answer": "are playing"
+        "question": "4. While we ____ (walk) home, it started to rain.",
+        "options": ["were walking", "was walking", "walked", "walking"],
+        "answer": "were walking"
     },
     {
-        "question": "5️⃣ My parents ______ dinner right now.",
-        "options": ["are cooking", "cooking", "cooked", "is cooking"],
-        "answer": "are cooking"
+        "question": "5. I ____ (not pay) attention when the teacher asked the question.",
+        "options": ["wasn't paying", "weren't paying", "not paid", "didn't pay"],
+        "answer": "wasn't paying"
     },
     {
-        "question": "6️⃣ I can’t talk now — I ______.",
-        "options": ["is studying", "study", "am studying", "studying"],
-        "answer": "am studying"
-    },
+        "question": "6. He ____ (drive) too fast when the police stopped him.",
+        "options": ["was driving", "were driving", "drives", "is driving"],
+        "answer": "was driving"
+    }
 ]
 
-fill_in_blank = [
-    {"question": "7️⃣ He ______ to the teacher. (talk)", "answer": "is talking"},
-    {"question": "8️⃣ What ______ you ______? (do)", "answer": "are / doing"},
-    {"question": "9️⃣ The children ______ TV at the moment. (watch)", "answer": "are watching"},
-    {"question": "🔟 I ______ a book right now. (read)", "answer": "am reading"},
+fill_questions = [
+    {
+        "question": "7. I ____ (read) a book when the lights went out.",
+        "answer": "was reading"
+    },
+    {
+        "question": "8. They ____ (not sleep) when we arrived.",
+        "answer": "weren't sleeping"
+    },
+    {
+        "question": "9. What ____ you ____ (do) when I saw you at the park?",
+        "answer": "were doing"
+    },
+    {
+        "question": "10. It ____ (rain) heavily when we left the house.",
+        "answer": "was raining"
+    }
 ]
 
-total_questions = len(multiple_choice) + len(fill_in_blank)
+total_questions = len(mc_questions) + len(fill_questions)
 
-# --- QUIZ STATE ---
+# --- STATE SETUP ---
 if "submitted" not in st.session_state:
     st.session_state.submitted = False
+if "score" not in st.session_state:
+    st.session_state.score = 0
 
-# --- MULTIPLE CHOICE SECTION ---
-st.header("🟢 Multiple Choice Questions")
-mc_answers = []
-for i, q in enumerate(multiple_choice):
-    user_choice = st.radio(q["question"], q["options"], key=f"mc_{i}")
-    mc_answers.append(user_choice)
+st.title("⏳ Past Continuous Tense Quiz")
 
-# --- FILL IN THE BLANK SECTION ---
-st.header("✍️ Fill in the Blank Questions")
-fb_answers = []
-for i, q in enumerate(fill_in_blank):
-    user_input = st.text_input(q["question"], key=f"fb_{i}")
-    fb_answers.append(user_input.strip())
-
-# --- PROGRESS BAR ---
-answered = sum(1 for a in mc_answers if a) + sum(1 for a in fb_answers if a)
-st.subheader("Progress: ")
-st.progress(answered / total_questions)
-# --- SUBMIT BUTTON ---
-if st.button("Submit Quiz 📝"):
-    st.session_state.submitted = True
-    st.session_state.mc_answers = mc_answers
-    st.session_state.fb_answers = fb_answers
-
-# --- RESULTS PAGE ---
-if st.session_state.submitted:
-    st.write("---")
-    st.subheader("🎯 Final Results")
+# --- QUIZ FORM ---
+with st.form("quiz_form"):
     score = 0
 
-    # Check MC answers
-    for i, q in enumerate(multiple_choice):
-        if st.session_state.mc_answers[i] == q["answer"]:
+    st.subheader("Multiple Choice Questions")
+    mc_answers = []
+    for q in mc_questions:
+        user_ans = st.radio(q["question"], q["options"], key=q["question"])
+        mc_answers.append(user_ans)
+
+    st.subheader("Fill in the Blank Questions")
+    fill_answers = []
+    for q in fill_questions:
+        user_ans = st.text_input(q["question"], key=q["question"])
+        fill_answers.append(user_ans.strip().lower())
+
+    submitted = st.form_submit_button("Submit Quiz")
+
+# --- SCORING ---
+if submitted:
+    score = 0
+
+    for i, q in enumerate(mc_questions):
+        if mc_answers[i] == q["answer"]:
             score += 1
 
-    # Check Fill-in answers
-    for i, q in enumerate(fill_in_blank):
-        user = st.session_state.fb_answers[i].lower().replace(" ", "")
-        correct = q["answer"].lower().replace(" ", "")
-        if user == correct:
+    for i, q in enumerate(fill_questions):
+        if fill_answers[i] == q["answer"]:
             score += 1
-    st.markdown(f"### ✅ You scored **{score} / {total_questions}**")
-    # --- RESTART ---
-    if st.button("Restart Quiz 🔁"):
+
+    st.session_state.score = score
+    st.session_state.submitted = True
+
+# --- DISPLAY RESULTS ---
+if st.session_state.submitted:
+    progress = st.session_state.score / total_questions
+    st.progress(progress)
+    st.success(f"🎯 You got {st.session_state.score}/{total_questions} correct!")
+
+    # Restart button
+    if st.button("🔄 Restart Quiz"):
         for key in list(st.session_state.keys()):
             del st.session_state[key]
         st.rerun()
