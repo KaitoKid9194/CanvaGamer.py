@@ -4,53 +4,53 @@ import random
 # --- QUIZ DATA ---
 mc_questions = [
     {
-        "question": "1. What were you doing at 8 PM yesterday?",
-        "options": ["I were study.", "I was studying.", "I was study.", "I am studying."],
-        "answer": "I was studying."
+        "question": "1. What are you doing right now?",
+        "options": ["I read.", "I am read.", "I am reading.", "I reading."],
+        "answer": "I am reading."
     },
     {
-        "question": "2. They ____ (watch) a movie when I called them.",
-        "options": ["was watching", "were watching", "watched", "are watching"],
-        "answer": "were watching"
+        "question": "2. She ____ (cook) dinner at the moment.",
+        "options": ["is cooking", "are cooking", "cooks", "cook"],
+        "answer": "is cooking"
     },
     {
-        "question": "3. She wasn't listening because she ____ (think) about something else.",
-        "options": ["is thinking", "were thinking", "thinks", "was thinking"],
-        "answer": "was thinking"
+        "question": "3. They ____ (not play) football today.",
+        "options": ["aren't playing", "isn't playing", "don't playing", "aren't play"],
+        "answer": "aren't playing"
     },
     {
-        "question": "4. While we ____ (walk) home, it started to rain.",
-        "options": ["were walking", "was walking", "walked", "walking"],
-        "answer": "were walking"
+        "question": "4. Look! It ____ (rain) outside.",
+        "options": ["rains", "is raining", "are raining", "rain"],
+        "answer": "is raining"
     },
     {
-        "question": "5. I ____ (not pay) attention when the teacher asked the question.",
-        "options": ["don't paying", "wasn't paying", "not paid", "didn't pay"],
-        "answer": "wasn't paying"
+        "question": "5. We ____ (study) English this week.",
+        "options": ["is studying", "are studying", "studies", "study"],
+        "answer": "are studying"
     },
     {
-        "question": "6. He ____ (drive) too fast when the police stopped him.",
-        "options": ["was driving", "were driving", "drives", "is driving"],
-        "answer": "was driving"
+        "question": "6. He ____ (not listen) to the teacher right now.",
+        "options": ["isn't listening", "aren't listening", "doesn't listening", "isn't listen"],
+        "answer": "isn't listening"
     }
 ]
 
 fill_questions = [
     {
-        "question": "7. I ____ (read) a book when the lights went out.",
-        "answer": "was reading"
+        "question": "7. I ____ (work) on my project right now.",
+        "answer": "am working"
     },
     {
-        "question": "8. They ____ (not sleep) when we arrived.",
-        "answer": "weren't sleeping"
+        "question": "8. They ____ (not sleep) at the moment.",
+        "answer": "aren't sleeping"
     },
     {
-        "question": "9. What ____ you ____ (do) when I saw you at the park?",
-        "answer": "were doing"
+        "question": "9. What ____ you ____ (do)?",
+        "answer": "are doing"
     },
     {
-        "question": "10. It ____ (rain) heavily when we left the house.",
-        "answer": "was raining"
+        "question": "10. She ____ (talk) to her friend on the phone.",
+        "answer": "is talking"
     }
 ]
 
@@ -64,8 +64,7 @@ if "score" not in st.session_state:
 if "key_seed" not in st.session_state:
     st.session_state.key_seed = random.randint(0, 10000)  # unique widget keys per run
 
-st.title("⏳ Past Continuous Tense Quiz")
-st.subheader("Answer all questions")
+st.title("💬 Present Continuous Tense Quiz")
 
 # --- QUIZ FORM ---
 with st.form("quiz_form"):
@@ -113,4 +112,3 @@ if st.session_state.submitted:
         for key in list(st.session_state.keys()):
             del st.session_state[key]
         st.rerun()
-
