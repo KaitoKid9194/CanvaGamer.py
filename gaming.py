@@ -10,7 +10,7 @@ mc_questions = [
     },
     {
         "question": "2. She ____ (cook) dinner at the moment.",
-        "options": ["is cooking", "are cooking", "cooks", "cook"],
+        "options": ["are cooking", "is cooking", "cooks", "cook"],
         "answer": "is cooking"
     },
     {
